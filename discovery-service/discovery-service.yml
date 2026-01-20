@@ -1,0 +1,19 @@
+server:
+  port: 8761 # Cổng mặc định tiêu chuẩn cho Eureka
+
+eureka:
+  client:
+    # Không đăng ký bản thân server vào danh sách service
+    register-with-eureka: false
+    # Không cần tải danh sách registry về (vì chính nó là nơi chứa)
+    fetch-registry: false
+  server:
+    # Tắt chế độ bảo vệ (Self-preservation) trong môi trường DEV
+    # Giúp loại bỏ service chết nhanh hơn khi debug
+    enable-self-preservation: false
+    # Thời gian chờ trước khi loại bỏ service không phản hồi (ms)
+    eviction-interval-timer-in-ms: 5000
+
+spring:
+  application:
+    name: discovery-server
