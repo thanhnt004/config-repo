@@ -21,7 +21,10 @@ spring:
             allowedHeaders: "*"
   application:
     name: api-gateway
-
+flyway:
+  enabled: true
+  locations: classpath:db/migration
+  baseline-on-migrate: true
 eureka:
   client:
     service-url:
