@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce-realm
+          jwk-set-uri: http://keycloak:8080/realms/ecommerce-realm/protocol/openid-connect/certs
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+  instance:
+    hostname: identity-service
+    prefer-ip-address: true
+app:
+  keycloak:
+    server-url: http://keycloak:8080
+    realm: ecommerce
+    client-id: ecommerce
+    client-secret: tBrlOfYoTmCO9ryI2EXCjqbfI0eDeHtU
+    admin:
+      username: admin
+      password: admin
