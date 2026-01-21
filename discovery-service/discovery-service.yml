@@ -13,7 +13,11 @@ eureka:
     enable-self-preservation: false
     # Thời gian chờ trước khi loại bỏ service không phản hồi (ms)
     eviction-interval-timer-in-ms: 5000
-
 spring:
   application:
     name: discovery-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
