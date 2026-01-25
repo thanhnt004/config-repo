@@ -28,6 +28,8 @@ eureka:
     hostname: identity-service
     prefer-ip-address: true
 app:
+  services:
+    profile: http://user-service:8080/users
   keycloak:
     server-url: http://keycloak:8080
     realm: ecommerce
