@@ -2,6 +2,11 @@ server:
   port: 8080
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce
   cloud:
     gateway:
       discovery:
@@ -13,6 +18,14 @@ spring:
           uri: lb://USER-SERVICE  # Tên service đăng ký trên Eureka
           predicates:
             - Path=/users/**
+        - id: identity-service
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/identity/**
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notifications/**
       globalcors:
         cors-configurations:
           '[/**]':

@@ -1,6 +1,19 @@
 server:
   port: 8081
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: user-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   security:
     oauth2:
       resourceserver:
@@ -19,7 +32,7 @@ app:
     server-url: http://keycloak:8080
     realm: ecommerce
     client-id: ecommerce
-    client-secret: tBrlOfYoTmCO9ryI2EXCjqbfI0eDeHtU
+    client-secret: J3k7bupFW8hqZmyHA46vdB06PRu7shbM
     admin:
       username: admin
       password: admin
