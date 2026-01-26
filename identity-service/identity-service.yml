@@ -34,7 +34,7 @@ app:
     server-url: http://keycloak:8080
     realm: ecommerce
     client-id: ecommerce
-    client-secret: 06afzFhWgkBp9wXesuuIuRgurwBJWZnp
+    client-secret: 5HcxPF8l4p0CKVuiwh3EenEXa11toQ2H
     admin:
       username: admin
       password: admin
