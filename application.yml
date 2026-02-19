@@ -1,0 +1,76 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+          jwk-set-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: ${spring.application.name}-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*" # Cho phép nhận diện các class DTO
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50 # Nếu 50% call lỗi thì ngắt mạch
+        #Đếm các cuộc gọi chậm như là lỗi
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 2s
+  timelimiter:
+      configs:
+          default:
+          timeoutDuration: 3s
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 500ms
+        retryExceptions:
+          - feign.RetryableException
+          - java.io.IOException
+          - feign.FeignException.InternalServerError
+        ignoreExceptions:
+          - org.example.identityservice.exception
+          - feign.FeignException.BadRequest    # 400
+          - feign.FeignException.Unauthorized  # 401
+          - feign.FeignException.Forbidden     # 403
+          - feign.FeignException.NotFound      # 404
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # Trace 100% request (trong môi trường dev)
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus # Mở các cổng giám sát
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]" # Hiển thị TraceID trong log
+feign:
+  circuitbreaker:
+    enabled: true
+

@@ -14,18 +14,58 @@ spring:
           enabled: true # Tự động tạo route dựa trên Service ID (tùy chọn)
           lower-case-service-id: true
       routes:
-        - id: user-service
-          uri: lb://USER-SERVICE  # Tên service đăng ký trên Eureka
-          predicates:
-            - Path=/users/**
+        # --- NHÓM TÀI KHOẢN & ĐĂNG NHẬP ---
         - id: identity-service
           uri: lb://IDENTITY-SERVICE
           predicates:
-            - Path=/identity/**
+            - Path=/api/v1/identity/**
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/users/**
+
+        # --- NHÓM BÁN HÀNG & SẢN PHẨM ---
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/products/**
+
+        - id: category-service
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+            - Path=/api/v1/categories/**
+
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/api/v1/cart/**
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/v1/orders/**
+
+        # --- NHÓM TIỆN ÍCH & THANH TOÁN ---
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/v1/payments/**
+
         - id: notification-service
           uri: lb://NOTIFICATION-SERVICE
           predicates:
-            - Path=/notifications/**
+            - Path=/api/v1/notifications/**
+
+        - id: banner-service
+          uri: lb://BANNER-SERVICE
+          predicates:
+            - Path=/api/v1/banners/**
+
+        - id: file-service
+          uri: lb://FILE-SERVICE
+          predicates:
+            - Path=/api/v1/files/**
       globalcors:
         cors-configurations:
           '[/**]':

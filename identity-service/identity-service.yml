@@ -2,24 +2,23 @@ server:
   port: 8081
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: user-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: ${spring.application.name}-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*" # Cho phép nhận diện các class DTO
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce-realm
-          jwk-set-uri: http://keycloak:8080/realms/ecommerce-realm/protocol/openid-connect/certs
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+          jwk-set-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 eureka:
   client:
     service-url:
@@ -28,6 +27,9 @@ eureka:
     hostname: identity-service
     prefer-ip-address: true
 app:
+  cookie:
+    domain: ${COOKIE_DOMAIN:localhost}
+    secure: ${COOKIE_SECURE:false}
   services:
     profile: http://user-service:8080/users
   keycloak:
