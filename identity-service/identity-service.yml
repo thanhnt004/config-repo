@@ -1,8 +1,22 @@
 server:
   port: 8081
+
 spring:
+  application:
+    name: identity-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/identity_db
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -11,32 +25,45 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: "*" # Cho phép nhận diện các class DTO
-
+        spring.json.trusted.packages: "*"
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-set-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+
 eureka:
   client:
     service-url:
       defaultZone: http://discovery-service:8761/eureka/
   instance:
-    hostname: identity-service
     prefer-ip-address: true
+
 app:
   cookie:
     domain: ${COOKIE_DOMAIN:localhost}
     secure: ${COOKIE_SECURE:false}
   services:
-    profile: http://user-service:8080/users
+    profile: http://user-service:8082/users
   keycloak:
     server-url: http://keycloak:8080
     realm: ecommerce
     client-id: ecommerce
-    client-secret: Mb6pAKzSEX0LkmlNuDt7D1QdouM17lO0
+    client-secret: {KEYCLOAK_CLIENT_SECRET:}
     admin:
       username: admin
       password: admin
+  google:
+    callback-url: http://api-gateway:8080/api/v1/identity/auth/google/callback
+    frontend-success-url: http://web-app:5173/oauth/callback
+    frontend-error-url: http://web-app:5173/login
+  facebook:
+    callback-url: http://api-gateway:8080/api/v1/identity/auth/facebook/callback
+    frontend-success-url: http://web-app:5173/oauth/callback
+    frontend-error-url: http://web-app:5173/login
+
+logging:
+  level:
+    com.example.identityservice: DEBUG
+    org.springframework.web: INFO

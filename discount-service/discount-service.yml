@@ -1,0 +1,27 @@
+spring:
+
+    org.springframework.web: INFO
+    com.example.discountservice: DEBUG
+  level:
+logging:
+
+    prefer-ip-address: true
+  instance:
+      defaultZone: http://discovery-service:8761/eureka/
+    service-url:
+  client:
+eureka:
+
+  port: 8091
+server:
+
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+        jwt:
+      resourceserver:
+    oauth2:
+  security:
+      enabled: true
+    config:
+  cloud:
+    name: discount-service
+  application:

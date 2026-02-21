@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: common-core
+
+logging:
+  level:
+    root: INFO
+

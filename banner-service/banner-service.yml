@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: banner-service
+
+server:
+  port: 8089
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    com.example.bannerservice: DEBUG
+    org.springframework.web: INFO
+

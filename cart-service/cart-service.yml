@@ -1,11 +1,8 @@
-server:
-  port: 8082
-
 spring:
   application:
-    name: user-service
+    name: cart-service
   datasource:
-    url: jdbc:postgresql://postgres:5432/user_db
+    url: jdbc:postgresql://postgres:5432/cart_db
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:
@@ -21,22 +18,23 @@ spring:
         jwt:
           issuer-uri: http://keycloak:8080/realms/ecommerce
 
+server:
+  port: 8087
+
 eureka:
   client:
-    service-url:
-      defaultZone: http://discovery-service:8761/eureka/
-  instance:
-    prefer-ip-address: true
+    enabled: false
+
+# Feign client configuration
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
 
 logging:
   level:
-    com.example.userservice: DEBUG
+    com.example.cartservice: DEBUG
     org.springframework.web: INFO
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,refresh
-
 
