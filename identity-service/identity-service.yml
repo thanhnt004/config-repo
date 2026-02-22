@@ -44,6 +44,7 @@ app:
   cookie:
     domain: ${COOKIE_DOMAIN:localhost}
     secure: ${COOKIE_SECURE:false}
+    refresh-token-expiration: ${REFRESH_TOKEN_EXPIRATION:604800}
   services:
     profile: http://user-service:8082/users
   keycloak:

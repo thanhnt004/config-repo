@@ -4,11 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
   cloud:
     gateway:
       discovery:
@@ -74,12 +69,58 @@ spring:
           predicates:
             - Path=/api/v1/discounts/**
 
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
+        - id: search-service
+          uri: lb://SEARCH-SERVICE
+          predicates:
+            - Path=/api/v1/search/**
+
+        - id: seller-service
+          uri: lb://SELLER-SERVICE
+          predicates:
+            - Path=/api/v1/sellers/**
+
+        # Seller self-management — product-service handles /api/v1/seller/products/**
+        - id: seller-product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/seller/products/**
+
+        # Seller self-management — order-service handles /api/v1/seller/orders/**
+        - id: seller-order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/v1/seller/orders/**
+
+        # Seller self-management — seller-service handles /api/v1/seller/** (profile, docs, bank)
+        - id: seller-profile-service
+          uri: lb://SELLER-SERVICE
+          predicates:
+            - Path=/api/v1/seller/**
+
+        - id: seller-service-admin
+          uri: lb://SELLER-SERVICE
+          predicates:
+            - Path=/api/v1/admin/sellers/**
+
+        - id: user-service-admin
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/admin/users/**
+
+        - id: banner-service-admin
+          uri: lb://BANNER-SERVICE
+          predicates:
+            - Path=/api/v1/admin/banners/**
+
+        - id: category-service-admin
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+            - Path=/api/v1/admin/categories/**
+
+        - id: identity-service-roles
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/api/v1/roles/**
 
 eureka:
   client:

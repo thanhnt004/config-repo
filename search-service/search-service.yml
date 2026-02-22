@@ -2,6 +2,24 @@ spring:
   application:
     name: search-service
 
+  # Elasticsearch
+  elasticsearch:
+    uris: http://elasticsearch:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+
+  # Kafka Consumer
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: search-service-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
 server:
   port: 8089
 
@@ -12,8 +30,24 @@ eureka:
   instance:
     prefer-ip-address: true
 
+# Kafka topic config
+app:
+  kafka:
+    topic:
+      product-events: product-events
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
 logging:
   level:
     com.example.searchservice: DEBUG
     org.springframework.web: INFO
+    org.springframework.data.elasticsearch: INFO
 
