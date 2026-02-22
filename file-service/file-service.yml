@@ -1,44 +1,37 @@
-spring:
-
-    org.springframework.web: INFO
-    com.example.fileservice: DEBUG
-  level:
-logging:
-
-    max-files: 10             # Max files per batch upload
-    max-file-size: 5242880    # 5MB per file
-  upload:
-app:
-# ==============================
-# Upload Configuration
-# ==============================
-
-  api-secret: ${CLOUDINARY_API_SECRET:your_api_secret}
-  api-key: ${CLOUDINARY_API_KEY:your_api_key}
-  cloud-name: ${CLOUDINARY_CLOUD_NAME:your_cloud_name}
-cloudinary:
-# ==============================
-# Cloudinary Configuration
-# ==============================
-
-    prefer-ip-address: true
-  instance:
-      defaultZone: http://discovery-service:8761/eureka/
-    service-url:
-  client:
-eureka:
-
-  port: 8093
 server:
+  port: 8093
 
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-        jwt:
-      resourceserver:
-    oauth2:
-  security:
-      max-request-size: 50MB
-      max-file-size: 10MB
-    multipart:
-  servlet:
-    name: file-service
+spring:
   application:
+    name: file-service
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME:your_cloud_name}
+  api-key: ${CLOUDINARY_API_KEY:your_api_key}
+  api-secret: ${CLOUDINARY_API_SECRET:your_api_secret}
+
+app:
+  upload:
+    max-file-size: 5242880    # 5MB per file
+    max-files: 10             # Max files per batch upload
+
+logging:
+  level:
+    com.example.fileservice: DEBUG
+    org.springframework.web: INFO
