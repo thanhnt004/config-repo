@@ -15,7 +15,7 @@ eureka:
   port: 8091
 server:
 
-          issuer-uri: http://keycloak:8080/realms/ecommerce
+          issuer-uri: http://localhost:7080/realms/ecommerce
         jwt:
       resourceserver:
     oauth2:

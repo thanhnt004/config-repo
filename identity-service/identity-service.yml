@@ -30,7 +30,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
+          issuer-uri: http://localhost:7080/realms/ecommerce
           jwk-set-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 
 eureka:
@@ -51,7 +51,7 @@ app:
     server-url: http://keycloak:8080
     realm: ecommerce
     client-id: ecommerce
-    client-secret: {KEYCLOAK_CLIENT_SECRET:}
+    client-secret: ${KEYCLOAK_CLIENT_SECRET:}
     admin:
       username: admin
       password: admin

@@ -16,7 +16,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
+          issuer-uri: http://localhost:7080/realms/ecommerce
 
 server:
   port: 8087
