@@ -12,6 +12,11 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 server:
   port: 8086
@@ -22,6 +27,11 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
   instance:
     prefer-ip-address: true
+
+# Kafka Topics
+kafka:
+  topics:
+    seller-events: seller-events
 
 logging:
   level:

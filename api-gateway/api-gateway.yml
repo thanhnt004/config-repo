@@ -85,6 +85,18 @@ spring:
           predicates:
             - Path=/api/v1/seller/products/**
 
+        # Seller option templates — product-service
+        - id: seller-option-templates
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/seller/option-templates/**
+
+        # Public option templates — product-service
+        - id: option-templates
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/option-templates/**
+
         # Seller self-management — order-service handles /api/v1/seller/orders/**
         - id: seller-order-service
           uri: lb://ORDER-SERVICE
@@ -116,6 +128,11 @@ spring:
           uri: lb://CATEGORY-SERVICE
           predicates:
             - Path=/api/v1/admin/categories/**
+
+        - id: admin-option-templates
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/admin/option-templates/**
 
         - id: identity-service-roles
           uri: lb://IDENTITY-SERVICE

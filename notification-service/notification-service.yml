@@ -60,6 +60,7 @@ kafka:
   topics:
     order-events: order-events
     user-events: user-events
+    seller-events: seller-events
 
 logging:
   level:
