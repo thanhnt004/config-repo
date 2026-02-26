@@ -50,8 +50,15 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+    # Retry kết nối Eureka khi khởi động
+    registry-fetch-interval-seconds: 5
+    initial-instance-info-replication-interval-seconds: 5
+    instance-info-replication-interval-seconds: 10
   instance:
     prefer-ip-address: true
+    # Gửi heartbeat thường xuyên hơn để phát hiện sớm
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
 
 # ==============================
 # Resilience4j Configuration
