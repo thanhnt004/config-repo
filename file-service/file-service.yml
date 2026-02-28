@@ -13,6 +13,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:7080/realms/ecommerce
+          jwk-set-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 
 eureka:
   client:
