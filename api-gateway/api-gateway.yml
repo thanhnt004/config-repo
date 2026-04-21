@@ -194,6 +194,11 @@ spring:
           uri: lb://IDENTITY-SERVICE
           predicates:
             - Path=/api/v1/roles/**
+
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/api/v1/conversations/**
         - id: websocket-worker
           uri: lb:ws://
           predicates:
