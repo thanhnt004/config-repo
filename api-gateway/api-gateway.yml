@@ -200,7 +200,7 @@ spring:
           predicates:
             - Path=/api/v1/conversations/**
         - id: websocket-worker
-          uri: lb:ws://
+          uri: lb:ws://WEBSOCKET-WORKER
           predicates:
             - Path=/ws/**
 eureka:
