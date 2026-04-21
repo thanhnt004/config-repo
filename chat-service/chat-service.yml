@@ -1,6 +1,8 @@
 spring:
   application:
     name: chat-service
+  mongodb:
+    uri: ${SPRING_MONGODB_URI:mongodb://mongodb:27017/chat_db}
   data:
     mongodb:
       uri: ${SPRING_DATA_MONGODB_URI:mongodb://mongodb:27017/chat_db}
