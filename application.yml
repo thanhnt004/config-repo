@@ -2,11 +2,6 @@ spring:
   # ==============================
   # Database Configuration (Chung cho các service có DB)
   # ==============================
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8180/realms/wearwave-realm
   datasource:
     driver-class-name: org.postgresql.Driver
   jpa:
