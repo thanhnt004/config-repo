@@ -196,7 +196,7 @@ spring:
             - Path=/api/v1/roles/**
 
         - id: chat-service
-          uri: http://chat-service:8093
+          uri: lb://CHAT-SERVICE
           predicates:
             - Path=/api/v1/conversations/**
         - id: websocket-worker
