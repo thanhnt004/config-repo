@@ -194,7 +194,10 @@ spring:
           uri: lb://IDENTITY-SERVICE
           predicates:
             - Path=/api/v1/roles/**
-
+        - id: websocket-worker
+          uri: lb:ws://
+          predicates:
+            - Path=/ws/**
 eureka:
   client:
     service-url:
