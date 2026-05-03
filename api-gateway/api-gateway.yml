@@ -203,6 +203,10 @@ spring:
           uri: ws://websocket-worker:8094
           predicates:
             - Path=/ws/**
+        - id: shipping-service
+          uri: lb://SHIPPING-SERVICE
+          predicates:
+            - Path=/api/v1/shipping/**
 eureka:
   client:
     service-url:
