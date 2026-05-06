@@ -42,6 +42,7 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/orders/**
+            - Path=//api/v1/checkout/**
 
         # --- NHÓM TIỆN ÍCH & THANH TOÁN ---
         - id: payment-service
