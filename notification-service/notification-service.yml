@@ -46,7 +46,7 @@ eureka:
 brevo:
   api-key: ${BREVO_API_KEY}
   sender:
-    email: a1287b001@smtp-brevo.com
+    email: nhthanh2k4@gmail.com
     name: Sellico
 
 # Notification Retry Configuration

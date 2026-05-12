@@ -12,9 +12,10 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
-  redis:
-    host: ${REDIS_HOST:redis}
-    port: ${REDIS_PORT:6379}
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
   kafka:
     bootstrap-servers: ${KAFKA_SERVERS:kafka:9092}
     producer:
@@ -46,4 +47,3 @@ logging:
   level:
     com.example.orderservice: DEBUG
     org.springframework.web: INFO
-
